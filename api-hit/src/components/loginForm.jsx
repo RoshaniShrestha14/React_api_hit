@@ -8,8 +8,18 @@ import {
 import { Formik } from "formik";
 import React from "react";
 import * as yup from "yup";
+import axios from  "axios";
 
 const LoginForm = () => {
+    const loginUser = async(values)=>{
+        try{
+            await axios.post("http://localhost:8000/user/login",values)
+        }catch(error){
+            console.log("Login user is failed",error);
+
+        }
+    }
+
   return (
     <Formik
       initialValues={{
@@ -26,7 +36,7 @@ const LoginForm = () => {
         password: yup.string().required("Password is required.").trim(),
       })}
       onSubmit={(values) => {
-        console.log(values);
+        loginUser(values);
       }}
     >
       {(formik) => {
